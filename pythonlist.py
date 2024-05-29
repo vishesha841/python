@@ -130,3 +130,73 @@ most_frequent_element = max(element_count, key=element_count.get)
 print("The most frequent element in the list is:", most_frequent_element)
 
 ##################
+
+
+keys = ['Ten', 'Twenty', 'Thirty']
+values = [10, 20, 30]
+
+
+dictionary = {}
+
+
+dictionary.update(zip(keys, values))
+
+
+print(dictionary)
+
+
+################
+
+import random
+
+class Voter:
+    def __init__(self, name):
+        self.name = name
+        self.vote = None
+
+class Candidate:
+    def __init__(self, name):
+        self.name = name
+        self.votes = 0
+
+voter_names = ["Voter1", "Voter2", "Voter3", "Voter4", "Voter5",
+               "Voter6", "Voter7", "Voter8", "Voter9", "Voter10"]
+
+voter_list = [Voter(name) for name in voter_names]
+
+candidates = [Candidate("A"), Candidate("B"), Candidate("C")]
+
+
+
+for voter in voter_list:
+    voter.vote = random.choice(candidates)
+
+
+for voter in voter_list:
+    voter.vote.votes += 1
+
+
+sorted_candidates = sorted(candidates, key=lambda x: x.votes, reverse=True)
+
+print("Election Results:")
+print("=================")
+for candidate in sorted_candidates:
+    print(f"{candidate.name}: {candidate.votes} votes")
+
+winner = sorted_candidates[0]
+runner_up = sorted_candidates[1]
+
+print("\nWinner:", winner.name)
+print("Runner-up:", runner_up.name)
+
+print("\nMembers who voted for the Winner:")
+for voter in voter_list:
+    if voter.vote == winner:
+        print(voter.name)
+
+print("\nMembers who voted for the Runner-up:")
+for voter in voter_list:
+    if voter.vote == runner_up:
+        print(voter.name)
+
+##################
