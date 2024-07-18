@@ -36,3 +36,12 @@ float_division = a / b
 print(float_division)
 print(product)
 ###########
+4.loop
+if __name__ == '__main__':
+    n = int(input())
+    
+    for i in range(n):
+        if i >= 0:
+            print(i**2)
+##########
+5.
