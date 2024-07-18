@@ -8,3 +8,18 @@ elif n % 2 == 0 and n in range(6, 21):
     print("Weird")
 else:
     print("Not Weird")
+#############
+2.arthimetic
+a = int(input())
+b = int(input())
+
+
+sum = a + b
+diff = a - b
+product = a * b
+
+
+print(sum)
+print(diff)
+print(product)
+###########
