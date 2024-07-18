@@ -20,6 +20,19 @@ product = a * b
 
 
 print(sum)
-print(diff)
+print(diff
+
+############
+3. division
+a = int(input())
+b = int(input())
+
+# Perform integer division
+integer_division = a // b
+print(integer_division)
+
+# Perform float division
+float_division = a / b
+print(float_division)
 print(product)
 ###########
