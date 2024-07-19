@@ -44,4 +44,33 @@ if __name__ == '__main__':
         if i >= 0:
             print(i**2)
 ##########
-5.
+5.# Read an integer from STDIN
+n = int(input())
+
+# Print the consecutive values
+for i in range(1, n+1):
+    print(i, end="")
+##############
+6.# Read input
+n = int(input())
+a = set(map(int, input().split()))
+q = int(input())
+
+# Process queries
+for _ in range(q):
+    operation, _ = input().split()
+    s = set(map(int, input().split()))
+    
+    if operation == "intersection_update":
+        a.intersection_update(s)
+    elif operation == "update":
+        a.update(s)
+    elif operation == "symmetric_difference_update":
+        a.symmetric_difference_update(s)
+    elif operation == "difference_update":
+        a.difference_update(s)
+
+# Output the sum of elements in set A
+print(sum(a))
+############
+7.
