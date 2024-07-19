@@ -175,3 +175,31 @@ if __name__ == "__main__":
     main()
 ###########
 11.
+# Input string
+s = input("Enter a string: ")
+
+# Check if the string has at least 3 characters
+if len(s) < 3:
+    print("Input string should have at least 3 characters.")
+else:
+    # Calculate the index of the middle character(s)
+    middle_index = len(s) // 2
+    
+    # Construct the new string
+    new_str = s[0] + s[middle_index] + s[-1]
+    
+    # Print the new string
+    print("New string:", new_str)
+  
+  ############
+12.
+  # Input string
+s = input("Enter a string: ")
+
+# Check if the string has at least 3 characters
+if len(s) < 3:
+    print("Input string should have at least 3 characters.")
+else:
+    # Calculate the index of the middle character(s)
+    middle_index = len(s) // 2
+    
