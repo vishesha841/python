@@ -69,8 +69,109 @@ for _ in range(q):
         a.symmetric_difference_update(s)
     elif operation == "difference_update":
         a.difference_update(s)
+##########
+7.from collections import Counter
+
+# Read input values
+K = int(input())
+room_list = list(map(int, input().split()))
+
+# Count the frequency of each room number
+room_count = Counter(room_list)
+
+# Find the room number that appears only once
+for room, count in room_count.items():
+    if count != K:
+        print(room)
+        break
+##########
+8.# Read input
+n = int(input())
+a = set(map(int, input().split()))
+q = int(input())
+
+# Process queries
+for _ in range(q):
+    operation, _ = input().split()
+    s = set(map(int, input().split()))
+    
+    if operation == "intersection_update":
+        a.intersection_update(s)
+    elif operation == "update":
+        a.update(s)
+    elif operation == "symmetric_difference_update":
+        a.symmetric_difference_update(s)
+    elif operation == "difference_update":
+        a.difference_update(s)
 
 # Output the sum of elements in set A
 print(sum(a))
+
 ############
-7.
+9.
+def is_subset(A, B):
+    return A.issubset(B)
+
+def main():
+    import sys
+    input = sys.stdin.read
+    data = input().split()
+    
+    index = 0
+    T = int(data[index])
+    index += 1
+    
+    results = []
+    for _ in range(T):
+        nA = int(data[index])
+        index += 1
+        A = set(map(int, data[index:index + nA]))
+        index += nA
+        nB = int(data[index])
+        index += 1
+        B = set(map(int, data[index:index + nB]))
+        index += nB
+        
+        if is_subset(A, B):
+            results.append("True")
+        else:
+            results.append("False")
+    
+    for result in results:
+        print(result)
+
+if __name__ == "__main__":
+    main()
+################
+10.# Function to check if set A is a strict superset of all other sets
+def is_strict_superset(set_a, other_sets):
+    for subset in other_sets:
+        if not (set_a > subset):  # Check if A is a strict superset
+            return False
+    return True
+
+# Main function to read input and output results
+def main():
+    # Read elements of set A and convert to a set
+    set_a = set(map(int, input().split()))
+    
+    # Read number of other sets
+    N = int(input())
+    
+    # Read each of the N sets
+    other_sets = []
+    for _ in range(N):
+        other_set = set(map(int, input().split()))
+        other_sets.append(other_set)
+    
+    # Check if set A is a strict superset of all other sets
+    result = is_strict_superset(set_a, other_sets)
+    
+    # Print the result
+    print(result)
+
+# Run the main function
+if __name__ == "__main__":
+    main()
+###########
+11.
