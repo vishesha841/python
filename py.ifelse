@@ -203,3 +203,411 @@ else:
     # Calculate the index of the middle character(s)
     middle_index = len(s) // 2
     
+#################
+13.class Solution(object):
+    def threeSumClosest(self, nums, target):
+     
+        nums.sort()
+        closest_sum = float('inf')
+        
+        for i in range(len(nums) - 2):
+            left, right = i + 1, len(nums) - 1
+            while left < right:
+                current_sum = nums[i] + nums[left] + nums[right]
+                if abs(current_sum - target) < abs(closest_sum - target):
+                    closest_sum = current_sum
+                if current_sum < target:
+                    left += 1
+                elif current_sum > target:
+                    right -= 1
+                else:
+                    return current_sum
+        
+        return closest_sum
+        #####################
+14.class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        head = ListNode()
+        current = head
+        carry = 0
+        while (l1 != None or l2 != None or carry != 0):
+            l1_value = l1.val if l1 else 0
+            l2_value = l2.val if l2 else 0
+            total = l1_value + l2_value + carry
+            current.next = ListNode(total % 10)
+            carry = total // 10
+            
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+            current = current.next
+        return head.next
+################
+15.class Solution(object):
+    def maxArea(self, height):
+        max_area = 0
+        l = 0
+        r = len(height) - 1
+        while l < r:
+            area = (r - l) * min(height[r], height[l])
+            max_area = max(max_area, area)
+            if height[l] < height[r]:
+                l += 1
+            else:
+                r -= 1
+        return max_area
+##############
+16.class Solution(object):
+    def divide(self, dividend, divisor):
+
+        if dividend == -2**31 and divisor == -1:
+            return 2**31 - 1
+
+        
+        sign = 1 if (dividend > 0) == (divisor > 0) else -1
+
+        abs_dividend = abs(dividend)
+        abs_divisor = abs(divisor)
+
+        quotient = 0
+
+        while abs_dividend >= abs_divisor:
+            temp_divisor = abs_divisor
+            multiple = 1
+            while abs_dividend >= (temp_divisor << 1):
+                temp_divisor <<= 1
+                multiple <<= 1
+            abs_dividend -= temp_divisor
+            quotient += multiple
+
+        return sign * quotient
+################
+17.class Solution:
+    def strStr(self, haystack, needle):
+        for i in range(len(haystack) - len(needle) + 1):
+            if haystack[i:i+len(needle)] == needle:
+                return i
+        return -1
+###########
+18.class Solution:
+    def intToRoman(self, num: int) -> str:
+        Roman = ""
+        storeIntRoman = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]]
+        for i in range(len(storeIntRoman)):
+            while num >= storeIntRoman[i][0]:
+                Roman += storeIntRoman[i][1]
+                num -= storeIntRoman[i][0]
+        return Roman
+###############
+19.class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        
+        digit_mapping = {
+            '2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl', 
+            '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'
+        }
+
+        combinations = []
+        self.backtrack(0, [], digits, digit_mapping, combinations)
+        return combinations
+
+    def backtrack(self, index: int, path: List[str], digits: str, letters: dict, combinations: List[str]):
+        
+        if len(path) == len(digits):
+            combinations.append(''.join(path))
+            return
+        
+        
+        possible_letters = letters[digits[index]]
+        
+        for letter in possible_letters:
+            
+            path.append(letter)
+            
+            self.backtrack(index + 1, path, digits, letters, combinations)
+            
+            path.pop()
+########################
+20.class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if len(s) <= 1:
+            return s
+        
+        Max_Len=1
+        Max_Str=s[0]
+        for i in range(len(s)-1):
+            for j in range(i+1,len(s)):
+                if j-i+1 > Max_Len and s[i:j+1] == s[i:j+1][::-1]:
+                    Max_Len = j-i+1
+                    Max_Str = s[i:j+1]
+
+        return Max_Str
+###############
+21.class Solution:
+    def longestCommonPrefix(self, strs):
+        if not strs:
+            return ""
+        prefix = strs[0]
+        for string in strs[1:]:
+            while string.find(prefix) != 0:
+                prefix = prefix[:-1]
+                if not prefix:
+                    return ""
+        return prefix
+##################
+22.class Solution {
+public:
+    double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
+        int n1 = nums1.size(), n2 = nums2.size();
+        
+        
+        if (n1 > n2)
+            return findMedianSortedArrays(nums2, nums1);
+        
+        int n = n1 + n2;
+        int left = (n1 + n2 + 1) / 2;
+        int low = 0, high = n1;
+        
+        while (low <= high) {
+            int mid1 = (low + high) >> 1;
+            int mid2 = left - mid1;
+            
+            int l1 = INT_MIN, l2 = INT_MIN, r1 = INT_MAX, r2 = INT_MAX;
+            
+            if (mid1 < n1)
+                r1 = nums1[mid1];
+            if (mid2 < n2)
+                r2 = nums2[mid2];
+            if (mid1 - 1 >= 0)
+                l1 = nums1[mid1 - 1];
+            if (mid2 - 1 >= 0)
+                l2 = nums2[mid2 - 1];
+            
+            if (l1 <= r2 && l2 <= r1) {
+                
+                if (n % 2 == 1)
+                    return max(l1, l2);
+                else
+                    return ((double)(max(l1, l2) + min(r1, r2))) / 2.0;
+            }
+            else if (l1 > r2) {
+                
+                high = mid1 - 1;
+            }
+            else {
+            
+                low = mid1 + 1;
+            }
+        }
+        
+        return 0; 
+};
+###############
+23.class Solution(object):
+    def nextPermutation(self, nums):
+        
+        index=-1
+        for i in range(len(nums)-2,-1,-1):
+            if nums[i]<nums[i+1]:
+                index=i
+                break
+        if index== -1 :
+            nums.reverse()
+            return nums
+        for i in range(len(nums)-1,index,-1) :
+            if nums[i]>nums[index]:
+                nums[i],nums[index]=nums[index],nums[i]
+                break
+        nums[index+1:len(nums)]=sorted(nums[index+1:])
+        return nums
+    
+nums = [3,2,1]
+solution = Solution()
+print(solution.nextPermutation(nums))
+############
+24.class Solution(object):
+    def isPalindrome(self, x):
+        if x < 0 or (x != 0 and x % 10 == 0):
+            return False
+
+        half = 0
+        while x > half:
+            half = (half * 10) + (x % 10)
+            x = x // 10
+
+        return x == half or x == half // 10
+#############
+25.class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        i, j = len(s) - 1, len(p) - 1
+        return self.backtrack({}, s, p, i, j)
+
+    def backtrack(self, cache, s, p, i, j):
+        key = (i, j)
+        if key in cache:
+            return cache[key]
+
+        if i == -1 and j == -1:
+            cache[key] = True
+            return True
+
+        if i != -1 and j == -1:
+            cache[key] = False
+            return cache[key]
+
+        if i == -1 and p[j] == '*':
+            k = j
+            while k != -1 and p[k] == '*':
+                k -= 2
+            
+            if k == -1:
+                cache[key] = True
+                return cache[key]
+            
+            cache[key] = False
+            return cache[key]
+        
+        if i == -1 and p[j] != '*':
+            cache[key] = False
+            return cache[key]
+
+        if p[j] == '*':
+            if self.backtrack(cache, s, p, i, j - 2):
+                cache[key] = True
+                return cache[key]
+            
+            if p[j - 1] == s[i] or p[j - 1] == '.':
+                if self.backtrack(cache, s, p, i - 1, j):
+                    cache[key] = True
+                    return cache[key]
+        
+        if p[j] == '.' or s[i] == p[j]:
+            if self.backtrack(cache, s, p, i - 1, j - 1):
+                cache[key] = True
+                return cache[key]
+
+        cache[key] = False
+        return cache[key]
+##############
+26.class Solution:
+    def removeDuplicates(self, nums):
+        if not nums:
+            return 0
+        
+        k = 1  
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1]:
+                nums[k] = nums[i]  
+                k += 1
+        
+        return k
+###############
+27.class Solution(object):
+    def removeElement(self, nums, val):
+        i = 0
+        for x in nums:
+            if x != val:
+                nums[i] = x
+                i += 1
+        return i
+##############
+28.class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        dummy = ListNode(0)
+        dummy.next = head
+        first = dummy
+        second = dummy
+
+        for _ in range(n + 1):
+            first = first.next
+
+        while first is not None:
+            first = first.next
+            second = second.next
+
+        second.next = second.next.next
+
+        return dummy.next
+#################
+29.class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        seen = {}
+        l = 0
+        length = 0
+        for r in range(len(s)):
+            char = s[r]
+            if char in seen and seen[char] >= l:
+                l = seen[char] + 1
+            else:
+                length = max(length, r - l + 1)
+            seen[char] = r
+
+        return length
+###############
+30.class Solution:
+    def reverse(self, x: int) -> int:
+        MAX_INT = 2 ** 31 - 1 # 2,147,483,647
+        MIN_INT = -2 ** 31    #-2,147,483,648
+        reverse = 0
+
+        while x != 0:
+            if reverse > MAX_INT / 10 or reverse < MIN_INT / 10:
+                return 0
+            digit = x % 10 if x > 0 else x % -10
+            reverse = reverse * 10 + digit
+            x = math.trunc(x / 10)
+
+        return reverse
+###############
+31.class Solution(object):
+    def reverseKGroup(self, head, k):
+        
+        def reverseLinkedList(head, k):
+            prev = None
+            curr = head
+            while k > 0 and curr:
+                next_node = curr.next
+                curr.next = prev
+                prev = curr
+                curr = next_node
+                k -= 1
+            return prev
+        
+        dummy = ListNode(0)
+        dummy.next = head
+        prev_group_end = dummy
+        while True:
+            
+            start = prev_group_end.next
+            end = prev_group_end
+            for _ in range(k):
+                if end.next:
+                    end = end.next
+                else:
+                    return dummy.next 
+            
+            
+            next_group_start = end.next
+            
+            
+            end.next = None
+            prev_group_end.next = reverseLinkedList(start, k)
+            
+            start.next = next_group_start
+            
+            prev_group_end = start
+        
+        return dummy.next
+###############
+32.class Solution:
+    def intToRoman(self, num: int) -> str:
+        Roman = ""
+        storeIntRoman = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]]
+        for i in range(len(storeIntRoman)):
+            while num >= storeIntRoman[i][0]:
+                Roman += storeIntRoman[i][1]
+                num -= storeIntRoman[i][0]
+        return Roman
+######################
